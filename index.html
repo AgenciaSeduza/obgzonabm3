@@ -4,7 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Obrigado – Acesso Liberado</title>
+
+  <!-- Fonte -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <!-- ✅ Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),
+          dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WTJZ6DZN');
+  </script>
+  <!-- ✅ End Google Tag Manager -->
+
   <style>
     :root{
       --bg: #0f001a;
@@ -94,24 +112,42 @@
     }
   </style>
 </head>
+
 <body>
+
+  <!-- ✅ Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-WTJZ6DZN"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden">
+    </iframe>
+  </noscript>
+  <!-- ✅ End Google Tag Manager (noscript) -->
 
   <div class="card">
     <img src="foto.png" alt="Acesso liberado" class="avatar" />
     <h1>ACESSO LIBERADO</h1>
     <div class="success">Compra confirmada com sucesso!</div>
-    <p>Sua entrada no grupo VIP da <strong>Zona Oculta</strong> já está garantida. Clique abaixo e entre agora.</p>
 
-    <a id="telegram-btn" href="https://t.me/+I-pcyWQm0khmYzYx" class="btn" target="_blank">
+    <p>
+      Sua entrada no grupo VIP da <strong>Zona Oculta</strong> já está garantida.
+      Clique abaixo e entre agora.
+    </p>
+
+    <a id="telegram-btn"
+       href="https://t.me/+I-pcyWQm0khmYzYx"
+       class="btn"
+       target="_blank">
       ENTRAR NO GRUPO VIP AGORA
     </a>
 
     <div class="footer">Acesso vitalício • Conteúdo todos os dias</div>
   </div>
 
-  <!-- ✅ EVENTO SERVER-SIDE VIA NETLIFY (SEM PIXEL, SEM TOKEN NO FRONT) -->
+  <!-- ✅ EVENTO SERVER-SIDE (SEM PIXEL NO FRONT) -->
   <script>
-
     const urlParams = new URLSearchParams(window.location.search);
 
     const value = parseFloat(
@@ -132,28 +168,23 @@
           content_name: "Acesso VIP Zona Oculta"
         })
       })
-      .then(r => r.json())
-      .then(d => console.log("✅ Evento enviado:", eventName, d))
-      .catch(e => console.error("Erro:", e));
+      .catch(() => {});
     }
 
-    // Enviar Purchase + ViewContent (apenas 1 vez)
+    // Enviar ViewContent + Purchase (apenas 1 vez)
     (function(){
-      if(localStorage.getItem('tt_purchase_zo_reserva')) return;
+      if(localStorage.getItem('zo_purchase_sent')) return;
 
       setTimeout(() => {
         sendEvent('ViewContent');
         sendEvent('Purchase');
-        localStorage.setItem('tt_purchase_zo_reserva', '1');
+        localStorage.setItem('zo_purchase_sent', '1');
       }, 800);
-
     })();
 
-    // Evento ao clicar no botão
     document.getElementById('telegram-btn').addEventListener('click', () => {
       sendEvent('CompleteRegistration');
     });
-
   </script>
 
 </body>
